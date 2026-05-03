@@ -121,6 +121,12 @@ Create a `.env` file in the root directory:
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
+⚠️ **SECURITY WARNING:** 
+- **NEVER commit `.env` to version control** (it's in `.gitignore`)
+- Keep your API keys private and secure
+- Use different API keys for development and production
+- Rotate keys regularly if compromised
+
 The agent will validate that a valid API key is provided on startup.
 
 ### Supported Models
