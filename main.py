@@ -1,44 +1,8 @@
-import sys
-from src.agent import TaskAgent
+from src.desktop_app import launch_app
 
-def main():
-    print("="*60)
-    print("🤖 AI Agentic Engineer - Task Execution Agent'a Hoş Geldiniz!")
-    print("Çıkmak için: 'q', 'quit' veya 'exit' yazabilirsiniz.")
-    print("="*60)
-    print("\nÖrnek Görevler:")
-    print("- 'Bana haftaya saat 17:00'den sonra bir dişçi randevusu ayarla.'")
-    print("- 'Prag'a 300€'nun altında 2 günlük bir gezi planla.'\n")
-    
-    try:
-        agent = TaskAgent()
-    except Exception as e:
-        print(f"\n❌ BAŞLATMA HATASI: {e}")
-        print("Lütfen .env dosyanızda geçerli bir OPENAI_API_KEY olduğundan emin olun.")
-        sys.exit(1)
-    
-    while True:
-        try:
-            user_input = input("\nSen: ")
-            if user_input.lower() in ['q', 'quit', 'exit']:
-                print("\nGörüşmek üzere!")
-                break
-                
-            if not user_input.strip():
-                continue
-                
-            print("\n🤖 Agent düşünüyor (ve gerekirse araçları kullanıyor)...\n")
-            
-            # Kullanıcı girdisini ajana gönder ve cevabı al
-            response = agent.process_input(user_input)
-            
-            print(f"🤖 Agent:\n{response}")
-            
-        except KeyboardInterrupt:
-            print("\n\nÇıkış yapılıyor...")
-            break
-        except Exception as e:
-            print(f"\n❌ Bir çalışma hatası oluştu: {e}")
+
+def main() -> None:
+    launch_app()
 
 if __name__ == "__main__":
     main()

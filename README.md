@@ -60,7 +60,7 @@ cp .env.example .env
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
-### Running the Agent
+### Running the Desktop App
 
 ```bash
 uv run python main.py
@@ -72,26 +72,21 @@ Or using the virtual environment directly:
 .\.venv\Scripts\python.exe main.py
 ```
 
+If you prefer a one-click Windows launcher, double-click `launch_chat.bat`.
+
 ## 📖 Usage
 
-Once the agent starts, you'll see:
+When the app opens, you'll see a separate desktop chat window.
 
-```
-🤖 AI Agentic Engineer - Task Execution Agent'a Hoş Geldiniz!
-Çıkmak için: 'q', 'quit' veya 'exit' yazabilirsiniz.
+Type your request, then click **Send** or press **Ctrl+Enter**.
 
-Sen:
-```
+Examples:
 
-Simply type your request and press Enter:
+- "Bana bir dişçi randevusu ayarla"
+- "Find hotels in Warsaw"
+- "Check my calendar for next Tuesday afternoon"
 
-```
-Sen: Book me a dentist appointment next week after 5pm.
-🤖 Agent düşünüyor (ve gerekirse araçları kullanıyor)...
-🤖 Agent: I'll help you book a dentist appointment...
-```
-
-To exit, type: `q`, `quit`, or `exit`
+Use **Clear** to reset the chat, or close the window to exit.
 
 ## 🏗️ Project Structure
 
@@ -104,11 +99,17 @@ agent-assignment/
 ├── pyproject.toml            # Project metadata and dependencies
 ├── uv.lock                   # Locked dependencies
 ├── README.md                 # This file
-├── main.py                   # Entry point
+├── main.py                   # Desktop app entry point
+├── launch_chat.bat           # Windows launcher for the desktop app
+├── launch_chat.ps1           # PowerShell launcher for the desktop app
 └── src/
-    ├── agent.py              # TaskAgent class with orchestration
+   ├── agent/
+   │   ├── __init__.py       # Exports TaskAgent
+   │   ├── core.py           # Shared agent helpers
+   │   └── orchestrator.py   # TaskAgent class with orchestration
+   ├── desktop_app.py        # Tkinter chat window
     ├── tools.py              # Tool definitions and implementations
-    └── __init__.py           # Package initialization
+   └── __init__.py           # Package initialization
 ```
 
 ## ⚙️ Configuration
@@ -140,7 +141,7 @@ Currently uses **Groq's Llama 3.3 70B Versatile** model for optimal performance:
 
 ## 🔧 Core Components
 
-### TaskAgent (`src/agent.py`)
+### TaskAgent (`src/agent/orchestrator.py`)
 
 The main agent class that:
 
@@ -153,6 +154,15 @@ The main agent class that:
 
 - `__init__()`: Initialize with API credentials
 - `process_input(user_input)`: Process user requests and return results
+
+### Desktop UI (`src/desktop_app.py`)
+
+The Tkinter application that:
+
+- Opens in a separate desktop window
+- Sends messages to the agent in the background
+- Keeps the UI responsive while the model is thinking
+- Shows conversation history in a scrollable chat view
 
 ### Tools (`src/tools.py`)
 
@@ -185,7 +195,7 @@ uv add <package-name>
 # Sync dependencies
 uv sync
 
-# Run with dependencies
+# Run the app with dependencies
 uv run python main.py
 ```
 
@@ -252,7 +262,6 @@ Potential improvements:
 - Real calendar API integration (Google Calendar, Outlook)
 - Real booking services (Stripe, booking.com APIs)
 - Persistent conversation storage
-- Web UI (Streamlit)
 - Multi-user support
 - Advanced logging and metrics
 
