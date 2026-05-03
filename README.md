@@ -286,4 +286,22 @@ uv run python main.py
 
 ---
 
+## 💬 Quick Start (CLI "Go Live")
+
+If your browser isn't available or you prefer the terminal, start the interactive CLI directly.
+
+Windows (PowerShell):
+
+```powershell
+cd C:\Stajodev\agent-assignment
+.\.venv\Scripts\python.exe main.py
+```
+
+Or use the provided one-click launchers:
+
+- Double-click `launch_chat.bat` (Windows)
+- Right-click and `Run with PowerShell` on `launch_chat.ps1`
+
+These launchers run the CLI using the project's virtual environment and open an interactive prompt where you can ask the AI questions.
+
 **Built with ❤️ using Python, Groq AI, and uv**
