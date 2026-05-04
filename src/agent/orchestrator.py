@@ -2,7 +2,7 @@ import json
 import os
 
 from dotenv import load_dotenv
-from groq import Groq
+from openai import OpenAI
 
 from src.tools import AVAILABLE_TOOLS, TOOL_DEFINITIONS
 
@@ -11,11 +11,11 @@ load_dotenv()
 
 class TaskAgent:
     def __init__(self, api_key: str | None = None):
-        api_key = api_key or os.getenv("GROQ_API_KEY")
+        api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not api_key:
-            raise ValueError("Missing GROQ_API_KEY in environment")
-        self.client = Groq(api_key=api_key)
-        self.model = "llama-3.3-70b-versatile"
+            raise ValueError("Missing OPENAI_API_KEY in environment")
+        self.client = OpenAI(api_key=api_key)
+        self.model = "gpt-4o-mini"
 
         self.system_prompt = {
             "role": "system",

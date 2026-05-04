@@ -13,7 +13,7 @@ def main() -> None:
         agent = TaskAgent()
     except Exception as exc:
         print(f"\n❌ BAŞLATMA HATASI: {exc}")
-        print("Lütfen .env dosyanızda geçerli bir GROQ_API_KEY olduğundan emin olun.")
+        print("Lütfen .env dosyanızda geçerli bir OPENAI_API_KEY olduğundan emin olun.")
         sys.exit(1)
 
     while True:
