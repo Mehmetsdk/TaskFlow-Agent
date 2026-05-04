@@ -31,7 +31,7 @@ The agent can handle requests like:
 
 - Python 3.14+ (as specified in `.python-version`)
 - `uv` package manager
-- OpenAI API key
+- Gemini API key from Google AI Studio
 
 ### Installation
 
@@ -54,10 +54,10 @@ uv sync
 cp .env.example .env
 ```
 
-4. **Add your OpenAI API key to `.env`:**
+4. **Add your Gemini API key to `.env`:**
 
 ```bash
-OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ### Running the Agent (CLI)
@@ -114,7 +114,7 @@ agent-assignment/
 Create a `.env` file in the root directory:
 
 ```env
-OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ⚠️ **SECURITY WARNING:**
@@ -128,7 +128,7 @@ The agent will validate that a valid API key is provided on startup.
 
 ### Supported Models
 
-Currently uses **OpenAI's GPT-4o Mini** model for optimal performance:
+Currently uses **Google's Gemini 2.5 Flash** model for optimal performance:
 
 - Fast inference
 - Tool orchestration support
@@ -245,7 +245,7 @@ The agent provides responses in this format:
 
 ## 🎓 Design Decisions
 
-1. **OpenAI over Groq**: Uses the requested provider and keeps the change minimal
+1. **Gemini over OpenAI**: Uses Google AI Studio with function calling support
 2. **Tool Orchestration**: Full loop for multi-step task execution
 3. **English-only**: Simplifies prompt engineering and reduces errors
 4. **Structured Summaries**: Meets assignment requirements for clear output
@@ -292,4 +292,4 @@ uv run python main.py
 3. Test thoroughly
 4. Push and create a Pull Request
 
-**Built with ❤️ using Python, OpenAI, and uv**
+**Built with ❤️ using Python, Gemini, and uv**

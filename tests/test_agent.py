@@ -15,37 +15,49 @@ class DummyChoice:
 
 
 class DummyResponse:
-    def __init__(self, message):
-        self.choices = [DummyChoice(message)]
+    def __init__(self, text=None, function_calls=None):
+        self.text = text
+        self.function_calls = function_calls or []
+        self.candidates = [DummyCandidate(DummyMessage(content=text))]
+
+
+class DummyCandidate:
+    def __init__(self, content):
+        self.content = content
 
 
 class DummyCompletions:
     def __init__(self, messages):
         self._messages = messages
 
-    def create(self, **kwargs):
+    def generate_content(self, **kwargs):
         self._messages.append(kwargs)
-        return DummyResponse(DummyMessage(content="Hello there"))
+        if len(self._messages) == 1:
+            return DummyResponse(text="Hello there")
+        return DummyResponse(text="Final summary")
 
 
-class DummyChat:
+class DummyModels:
     def __init__(self, messages):
-        self.completions = DummyCompletions(messages)
+        self.generate_content = DummyCompletions(messages).generate_content
 
 
 class DummyClient:
     def __init__(self):
         self.calls = []
-        self.chat = DummyChat(self.calls)
+        self.models = DummyModels(self.calls)
 
 
 class AgentTest(unittest.TestCase):
     def _build_agent(self) -> TaskAgent:
         agent = TaskAgent.__new__(TaskAgent)
         agent.client = DummyClient()
-        agent.model = "llama-3.3-70b-versatile"
-        agent.system_prompt = {"role": "system", "content": "stub"}
-        agent.conversation_history = [agent.system_prompt]
+        agent.model = "gemini-2.5-flash"
+        agent.base_system_instruction = "stub"
+        agent.tool_declarations = []
+        agent.tool_config = None
+        agent.conversation_history = []
+        agent.has_produced_assistant_reply = False
         return agent
 
     def test_clarification_is_turkish(self):
@@ -64,7 +76,7 @@ class AgentTest(unittest.TestCase):
         agent = self._build_agent()
         response = agent.process_input("Merhaba")
         self.assertIn("Hello there", response)
-        self.assertIn("Respond in English.", str(agent.client.calls[0]["messages"]))
+        self.assertIn("Respond in English.", agent.client.calls[0]["config"].system_instruction)
 
 
 if __name__ == "__main__":
