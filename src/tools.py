@@ -4,7 +4,6 @@ import json
 def calendar_check(date_range: str) -> str:
     """Belirtilen tarih aralığı için takvim müsaitliğini kontrol eder."""
     print(f"🔧 [ARAÇ TETİKLENDİ]: Takvim kontrol ediliyor -> {date_range}")
-    # Gerçek bir senaryoda burada Google Calendar veya Outlook API çağrılır.
     return json.dumps(
         {
             "status": "success",
@@ -17,7 +16,6 @@ def calendar_check(date_range: str) -> str:
 def search_service(query: str) -> str:
     """İstenen konsept, mekan veya hizmet için arama yapar."""
     print(f"🔧 [ARAÇ TETİKLENDİ]: Arama yapılıyor -> {query}")
-    # Gerçek bir senaryoda burada Google Search, Yelp veya veritabanı API'si çalışır.
     return json.dumps(
         {
             "status": "success",
@@ -32,7 +30,6 @@ def search_service(query: str) -> str:
 def booking_service(option: str) -> str:
     """Belirtilen seçenek için rezervasyon veya satın alma işlemini gerçekleştirir."""
     print(f"🔧 [ARAÇ TETİKLENDİ]: Rezervasyon yapılıyor -> {option}")
-    # Gerçek bir senaryoda burada ödeme sistemi veya rezervasyon API'si devreye girer.
     return json.dumps(
         {
             "status": "success",
@@ -48,7 +45,6 @@ def reminder_create(details: str) -> str:
     return json.dumps({"status": "success", "message": f"Hatırlatıcı başarıyla eklendi: {details}"})
 
 
-# LLM'in bu fonksiyonları anlayıp kullanabilmesi için gereken JSON şemaları
 TOOL_DEFINITIONS = [
     {
         "type": "function",
@@ -120,7 +116,6 @@ TOOL_DEFINITIONS = [
     },
 ]
 
-# LLM'in string olarak döndürdüğü fonksiyon ismini, gerçek Python fonksiyonuyla eşleştiren sözlük
 AVAILABLE_TOOLS = {
     "calendar_check": calendar_check,
     "search_service": search_service,

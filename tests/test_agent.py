@@ -57,8 +57,14 @@ class AgentTest(unittest.TestCase):
     def test_english_reply_has_no_summary(self):
         agent = self._build_agent()
         response = agent.process_input("hi")
-        self.assertEqual(response, "Hello there")
-        self.assertNotIn("FINAL SUMMARY", response)
+        self.assertIn("Hello there", response)
+        self.assertIn("FINAL SUMMARY", response)
+
+    def test_first_reply_defaults_to_english(self):
+        agent = self._build_agent()
+        response = agent.process_input("Merhaba")
+        self.assertIn("Hello there", response)
+        self.assertIn("Respond in English.", str(agent.client.calls[0]["messages"]))
 
 
 if __name__ == "__main__":

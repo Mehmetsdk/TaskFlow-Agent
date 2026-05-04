@@ -148,7 +148,10 @@ class TaskAgent:
         return None
 
     def process_input(self, user_input: str) -> str:
-        language = self._detect_language(user_input)
+        is_first_assistant_reply = not any(
+            message.get("role") == "assistant" for message in self.conversation_history
+        )
+        language = "English" if is_first_assistant_reply else self._detect_language(user_input)
         self.conversation_history.append({"role": "user", "content": user_input})
 
         clarification = self._needs_clarification(user_input)
@@ -192,4 +195,18 @@ class TaskAgent:
             else:
                 base_response = message.content
                 self.conversation_history.append({"role": "assistant", "content": base_response})
-                return base_response
+                summary_instruction = {
+                    "role": "user",
+                    "content": (
+                        "Provide a clear final summary in the same language as the user's message. "
+                        "Include: 1) What was done, 2) What was booked/found, 3) Remaining blockers. "
+                        "Keep it concise and structured."
+                    ),
+                }
+                summary_response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=self.conversation_history + [language_instruction, summary_instruction],
+                )
+                summary_content = summary_response.choices[0].message.content
+                self.conversation_history.append({"role": "assistant", "content": summary_content})
+                return f"{base_response}\n\n{'='*60}\n📋 FINAL SUMMARY:\n{'='*60}\n{summary_content}"

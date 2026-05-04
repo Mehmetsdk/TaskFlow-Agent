@@ -127,9 +127,7 @@ class ChatDesktopApp:
         status_bar = ttk.Label(container, textvariable=self.status_var, anchor="w")
         status_bar.pack(fill="x", pady=(10, 0))
 
-        self._append_system_message(
-            "Ready. Ask a question or request a task to begin."
-        )
+        self._append_system_message("Ready. Ask a question or request a task to begin.")
 
     def _send_from_shortcut(self, event: tk.Event) -> str:
         self.send_message()

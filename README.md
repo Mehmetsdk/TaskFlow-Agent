@@ -60,7 +60,7 @@ cp .env.example .env
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
-### Running the Desktop App
+### Running the Agent (CLI)
 
 ```bash
 uv run python main.py
@@ -72,13 +72,11 @@ Or using the virtual environment directly:
 .\.venv\Scripts\python.exe main.py
 ```
 
-If you prefer a one-click Windows launcher, double-click `launch_chat.bat`.
-
 ## 📖 Usage
 
-When the app opens, you'll see a separate desktop chat window.
+When the app starts, you'll see the terminal chat prompt.
 
-Type your request, then click **Send** or press **Ctrl+Enter**.
+Type your request and press **Enter**.
 
 Examples:
 
@@ -86,7 +84,7 @@ Examples:
 - "Find hotels in Warsaw"
 - "Check my calendar for next Tuesday afternoon"
 
-Use **Clear** to reset the chat, or close the window to exit.
+Type `q`, `quit`, or `exit` to leave the app.
 
 ## 🏗️ Project Structure
 
@@ -99,16 +97,13 @@ agent-assignment/
 ├── pyproject.toml            # Project metadata and dependencies
 ├── uv.lock                   # Locked dependencies
 ├── README.md                 # This file
-├── main.py                   # Desktop app entry point
-├── launch_chat.bat           # Windows launcher for the desktop app
-├── launch_chat.ps1           # PowerShell launcher for the desktop app
+├── main.py                   # CLI entry point
 └── src/
    ├── agent/
    │   ├── __init__.py       # Exports TaskAgent
    │   ├── core.py           # Shared agent helpers
    │   └── orchestrator.py   # TaskAgent class with orchestration
-   ├── desktop_app.py        # Tkinter chat window
-    ├── tools.py              # Tool definitions and implementations
+   ├── tools.py              # Tool definitions and implementations
    └── __init__.py           # Package initialization
 ```
 
@@ -154,15 +149,6 @@ The main agent class that:
 
 - `__init__()`: Initialize with API credentials
 - `process_input(user_input)`: Process user requests and return results
-
-### Desktop UI (`src/desktop_app.py`)
-
-The Tkinter application that:
-
-- Opens in a separate desktop window
-- Sends messages to the agent in the background
-- Keeps the UI responsive while the model is thinking
-- Shows conversation history in a scrollable chat view
 
 ### Tools (`src/tools.py`)
 
@@ -290,7 +276,10 @@ cd agent-assignment
 uv sync
 
 # Run tests
-uv run python -m pytest
+uv run python -m unittest discover -s tests -v
+
+# Run lint
+uv run python -m ruff check .
 
 # Run the agent
 uv run python main.py
@@ -302,25 +291,5 @@ uv run python main.py
 2. Make your changes
 3. Test thoroughly
 4. Push and create a Pull Request
-
----
-
-## 💬 Quick Start
-
-Start the desktop chat app directly from Windows or the terminal.
-
-Windows (PowerShell):
-
-```powershell
-cd C:\Stajodev\agent-assignment
-.\.venv\Scripts\python.exe main.py
-```
-
-Or use the provided one-click launchers:
-
-- Double-click `launch_chat.bat` (Windows)
-- Right-click and `Run with PowerShell` on `launch_chat.ps1`
-
-These launchers run the desktop app using the project's virtual environment.
 
 **Built with ❤️ using Python, Groq AI, and uv**
