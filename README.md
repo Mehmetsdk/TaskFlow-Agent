@@ -80,7 +80,7 @@ Type your request into the input box and press **Enter** or click **Send**.
 
 Examples:
 
-- "Bana bir dişçi randevusu ayarla"
+- "Book me a dentist appointment"
 - "Find hotels in Warsaw"
 - "Check my calendar for next Tuesday afternoon"
 
@@ -165,7 +165,6 @@ Each tool includes mock implementations for demonstration.
 
 The agent uses a carefully engineered system prompt that:
 
-- ✅ Starts with English on the first reply, then mirrors the user's language
 - ✅ Enforces clarifying questions for missing information
 - ✅ Guides tool usage and error handling
 - ✅ Requires structured final summaries
