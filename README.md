@@ -246,7 +246,7 @@ The agent provides responses in this format:
 
 1. **Groq over Gemini**: Uses a fast hosted model with function calling support
 2. **Tool Orchestration**: Full loop for multi-step task execution
-3. **English-only**: Simplifies prompt engineering and reduces errors
+3. **Language mirroring**: Starts with English on the first reply, then mirrors the user's language
 4. **Structured Summaries**: Meets assignment requirements for clear output
 5. **uv Package Manager**: Modern, deterministic, and faster than pip
 
