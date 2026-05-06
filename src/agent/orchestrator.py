@@ -202,7 +202,8 @@ class TaskAgent:
         summary_request = {
             "role": "user",
             "content": (
-                "Provide a clear final summary in the same language as the user's message. "
+                f"Provide a clear final summary strictly in {language}. "
+                "CRITICAL RULE: Never mix languages within the summary. Do not use Spanish or any other unintended languages. "
                 "Include: 1) What was done, 2) What was booked/found, 3) Remaining blockers. "
                 "Keep it concise and structured."
             ),
